@@ -23,7 +23,6 @@ Pillow>=10.0.0
 streamlit>=1.28.0
 # Stock footage
 pexels-api>=1.0.0
-pixabay-py>=1.0.0
 # Utilities
 aiofiles>=23.0.0
 python-multipart>=0.0.6
