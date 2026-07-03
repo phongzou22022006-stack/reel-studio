@@ -45,16 +45,18 @@ tasks/
 *.mp4
 *.mp3
 *.srt
+
+# Model downloads (local)
+/models/
+whisper-*/
+*.bin
+*.pt
+
+# Generated assets
 *.json
 *.png
 *.jpg
 *.jpeg
-
-# Models
-models/
-whisper-*/
-*.bin
-*.pt
 
 # Docker
 Dockerfile
