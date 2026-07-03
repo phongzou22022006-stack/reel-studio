@@ -1,0 +1,121 @@
+[project]
+name = "reel-studio"
+version = "0.1.0"
+description = "Facebook Reels automation with templating & human-in-the-loop workflow"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Luffy", email = ""},
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Video",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    # Core
+    "loguru>=0.7.0",
+    "pydantic>=2.0.0",
+    "toml>=0.10.0",
+    # Web framework
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "starlette>=0.27.0",
+    # LLM clients
+    "openai>=1.0.0",
+    "requests>=2.31.0",
+    # TTS
+    "edge-tts>=6.1.0",
+    # Subtitle
+    "faster-whisper>=0.10.0",
+    "pysubs2>=1.6.0",
+    # Video
+    "moviepy>=2.0.0",
+    "imageio[ffmpeg]>=2.31.0",
+    "Pillow>=10.0.0",
+    # Web UI
+    "streamlit>=1.28.0",
+    "streamlit-option-menu>=0.3.6",
+    # Stock footage
+    "pexels-api>=1.0.0",
+    "pixabay-py>=1.0.0",
+    # Utilities
+    "aiofiles>=23.0.0",
+    "python-multipart>=0.0.6",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0.0",
+    "pre-commit>=3.0.0",
+]
+gpu = [
+    "torch>=2.0.0",
+    "torchaudio>=2.0.0",
+]
+docker = [
+    "docker>=6.0.0",
+]
+
+[project.scripts]
+reel-studio = "cli:run_cli"
+reel-studio-webui = "webui.Main:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "reel_studio/__init__.py"
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+select = [
+    "E", "F",  # pycodestyle errors
+    "W",       # pycodestyle warnings
+    "B",       # flake8-bugbear
+    "I",       # isort
+    "UP",      # pyupgrade
+]
+ignore = [
+    "E501",  # line too long (handled by black)
+    "B008",  # do not perform function calls in argument defaults
+]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true

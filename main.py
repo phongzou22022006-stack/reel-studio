@@ -1,0 +1,20 @@
+"""
+FastAPI server for Reel Studio.
+"""
+
+import uvicorn
+from loguru import logger
+
+from app.config import config
+
+if __name__ == "__main__":
+    logger.info(
+        f"Starting Reel Studio server, docs: http://{config.listen_host}:{config.listen_port}/docs"
+    )
+    uvicorn.run(
+        app="app.asgi:app",
+        host=config.listen_host,
+        port=config.listen_port,
+        reload=config.reload_debug,
+        log_level="warning",
+    )

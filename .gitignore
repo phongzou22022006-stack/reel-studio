@@ -1,0 +1,70 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.venv*/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Project
+config.toml
+tasks/
+*.log
+*.mp4
+*.mp3
+*.srt
+*.json
+*.png
+*.jpg
+*.jpeg
+
+# Models
+models/
+whisper-*/
+*.bin
+*.pt
+
+# Docker
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# Temp
+temp/
+tmp/
+
+# Reel Studio specific
+media/
+uploads/

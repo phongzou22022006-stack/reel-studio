@@ -1,0 +1,201 @@
+# Reel Studio Configuration Example
+# Copy this file to config.toml and edit.
+
+[app]
+listen_host = "127.0.0.1"
+listen_port = 8080
+reload_debug = false
+ffmpeg_path = ""  # leave empty for auto‑detection
+
+# ============================================================================
+# LLM Provider (Script Generation)
+# ============================================================================
+[llm]
+provider = "9router"                     # "9router", "openai", "groq", "ollama", "google"
+api_base = "http://host.docker.internal:20128/v1"  # 9router local endpoint
+model = "all-in-one"                     # 9router model
+api_key = ""                             # not needed for 9router local
+temperature = 0.7
+max_tokens = 1000
+
+# OpenAI‑compatible fallback (if not using 9router)
+[openai]
+api_key = ""
+base_url = "https://api.openai.com/v1"
+model = "gpt-4o-mini"
+
+# Google (Gemini) fallback
+[google]
+api_key = ""
+model = "gemini-2.0-flash-exp"
+
+# Groq fallback
+[groq]
+api_key = ""
+model = "llama3-70b-8192"
+
+# Ollama fallback
+[ollama]
+base_url = "http://localhost:11434"
+model = "llama3.1:8b"
+
+# ============================================================================
+# Text‑to‑Speech
+# ============================================================================
+[tts]
+provider = "edge"                        # "edge" (free), "azure_v2", "elevenlabs", "coqui"
+voice_name = "vi-VN-HoaiMyNeural"        # Edge TTS Vietnamese female
+voice_rate = 1.0                         # 1.0 = normal speed
+voice_volume = 1.0                       # 1.0 = normal volume
+
+# Azure TTS v2 (paid, optional)
+[azure]
+speech_key = ""
+speech_region = "eastus"
+
+# ElevenLabs (paid, optional)
+[elevenlabs]
+api_key = ""
+voice_id = ""
+
+# Coqui TTS (local, optional)
+[coqui]
+model_name = "tts_models/multilingual/multi-dataset/xtts_v2"
+speaker_wav = ""                         # reference audio for cloning
+
+# ============================================================================
+# Subtitle Generation
+# ============================================================================
+[subtitle]
+provider = "whisper"                     # "whisper", "edge"
+model_size = "medium"                    # "tiny", "base", "small", "medium", "large-v3"
+language = "vi"                          # auto‑detect if empty
+
+[subtitle_style]
+enabled = true
+position = "bottom"                      # "top", "center", "bottom"
+font_name = "Roboto-Bold.ttf"
+font_size = 48
+fore_color = "#FFFFFF"
+stroke_color = "#000000"
+stroke_width = 2.0
+background_color = ""                    # empty = no background
+rounded_background = false
+custom_position = 90.0                   # percent from top (0‑100) if position=custom
+
+# ============================================================================
+# Visual Pipeline
+# ============================================================================
+[image]
+provider = "none"                        # "none", "googleflow", "pollinations", "sd_local"
+# "none" means AI generates prompts only – you generate images manually
+
+# Google AI Studio (Imagen 3)
+[googleflow]
+api_key = ""
+model = "imagen-3.0-generate-001"
+aspect = "16:9"
+style = "photographic"                   # "photographic", "digital_art", "sketch", etc.
+
+# Pollinations.ai (free online)
+[pollinations]
+model = "flux"                           # "flux", "sd3", "dalle3"
+aspect = "16:9"
+style = ""
+
+# Stable Diffusion Local (AUTOMATIC1111)
+[sd_local]
+api_base = "http://127.0.0.1:7860"
+model = ""
+steps = 30
+cfg_scale = 7.5
+
+# ============================================================================
+# Stock Footage (optional)
+# ============================================================================
+[stock]
+enabled = false                          # set true to mix stock footage with AI images
+pexels_api_key = ""
+pixabay_api_key = ""
+mix_ratio = 0.3                          # 0.0 = only AI images, 1.0 = only stock footage
+max_clip_duration = 5                    # seconds per stock clip
+
+# ============================================================================
+# Video Assembly
+# ============================================================================
+[video]
+aspect = "16:9"                          # "16:9", "9:16", "1:1", "4:5"
+concat_mode = "random"                   # "random", "sequential"
+transition_mode = ""                     # "none", "shuffle", "fade‑in", "fade‑out"
+clip_duration = 5                        # max seconds per visual clip
+threads = 4                              # ffmpeg encoding threads
+resolution = "1920x1080"                 # output resolution
+
+[overlay]
+hook_text = true                         # add hook text overlay at start
+hook_duration = 3                        # seconds
+hook_font = "Roboto-Bold.ttf"
+hook_font_size = 72
+hook_color = "#FFFFFF"
+hook_stroke = "#000000"
+hook_position = "center"
+
+cta_text = true                          # add call‑to‑action overlay at end
+cta_duration = 3
+cta_font = "Roboto-Bold.ttf"
+cta_font_size = 48
+cta_color = "#FFFFFF"
+cta_stroke = "#000000"
+cta_position = "bottom"
+
+watermark = false
+watermark_image = ""
+watermark_position = "top-right"
+
+# ============================================================================
+# Audio & Music
+# ============================================================================
+[audio]
+bgm_type = "random"                      # "none", "random", "custom"
+bgm_volume = 0.15                        # relative to voice volume
+custom_bgm_file = ""                     # path to custom background music
+sound_effects = false                    # add hook/transition sound effects
+sound_volume = 0.3
+
+# ============================================================================
+# Facebook Publishing (optional)
+# ============================================================================
+[facebook]
+enabled = false
+page_id = ""
+access_token = ""
+privacy_status = "PUBLIC"                # "PUBLIC", "FRIENDS", "DRAFT"
+contains_synthetic_media = true          # mark as AI‑generated content
+
+# ============================================================================
+# Templating & Styling
+# ============================================================================
+[templating]
+script_template = "default"              # template file in templates/scripts/
+prompt_template = "default"              # template file in templates/prompts/
+style_config = ""                        # YAML file in styles/ (overrides above)
+
+[templating.defaults]
+language = "vi"
+tone = "educational"
+length = 30                              # seconds
+hook_type = "question"                   # "question", "shock", "story", "number_list"
+
+# ============================================================================
+# Storage & Logging
+# ============================================================================
+[storage]
+task_dir = "./tasks"                     # where task data is stored
+keep_tasks = 7                           # days to keep completed tasks
+max_concurrent_tasks = 3
+
+[logging]
+level = "INFO"
+file = "reel-studio.log"
+max_size_mb = 100
+backup_count = 3
