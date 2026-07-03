@@ -1,4 +1,4 @@
-"""Requirements for Reel Studio."""
+# Requirements for Reel Studio
 
 # Core
 loguru>=0.7.0
