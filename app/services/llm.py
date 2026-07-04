@@ -31,10 +31,10 @@ class LLMClient:
     def _setup_client(self):
         """Setup LLM client based on provider."""
         if self.provider == LLMProvider.NINEROUTER:
-            # 9router uses OpenAI-compatible API
+            # 9router uses OpenAI-compatible API (no key required for local)
             self._client = OpenAI(
                 base_url=self.api_base,
-                api_key=self.api_key or "not-needed",
+                api_key="not-needed",
                 timeout=60.0,
             )
         elif self.provider == LLMProvider.OPENAI:
