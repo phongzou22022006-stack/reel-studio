@@ -195,6 +195,11 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     # ============================================================================
     video_group = parser.add_argument_group("Video Parameters")
     video_group.add_argument(
+        "--video-terms",
+        default=None,
+        help="Comma-separated search terms for stock footage",
+    )
+    video_group.add_argument(
         "--video-count",
         type=_positive_int,
         default=1,
